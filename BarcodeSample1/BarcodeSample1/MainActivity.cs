@@ -832,6 +832,7 @@ namespace Symbol.XamarinEMDK.BarcodeSample1
 
                     // Should be assigned back to the property to get the changes to the lower layers.
                     scanner.SetConfig(config);
+                    scanner.SetConfig(config);//if called twice, I2of5 is not enabled
                 }
                 catch (ScannerException e)
                 {
