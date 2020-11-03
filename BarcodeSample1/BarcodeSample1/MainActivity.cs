@@ -44,6 +44,7 @@ namespace Symbol.XamarinEMDK.BarcodeSample1
         private CheckBox checkBoxCode39 = null;
         private CheckBox checkBoxCode128 = null;
         private CheckBox checkBoxContinuous = null;
+        private CheckBox checkBoxCodeI2of5 = null;        
 
         private Spinner spinnerScanners = null;
         private Spinner spinnerTriggers = null;
@@ -93,13 +94,8 @@ namespace Symbol.XamarinEMDK.BarcodeSample1
 				break;
 			}
 
-			// Set corresponding layout dynamically based on the default/natural orientation.
-			if(width > height){
-				SetContentView(Resource.Layout.Landscape);
-                horizontal = true;
-			} else {
-				SetContentView(Resource.Layout.Portrait);
-			}
+			SetContentView(Resource.Layout.Portrait);
+			
 
             textViewData = FindViewById<TextView>(Resource.Id.textViewData) as TextView;
             textViewStatus = FindViewById<TextView>(Resource.Id.textViewStatus) as TextView;
@@ -537,11 +533,13 @@ namespace Symbol.XamarinEMDK.BarcodeSample1
             checkBoxEAN13 = FindViewById<CheckBox>(Resource.Id.checkBoxEAN13);
             checkBoxCode39 = FindViewById<CheckBox>(Resource.Id.checkBoxCode39);
             checkBoxCode128 = FindViewById<CheckBox>(Resource.Id.checkBoxCode128);
+            checkBoxCodeI2of5 = FindViewById<CheckBox>(Resource.Id.checkBoxCodeI2of5);
 
             checkBoxEAN8.CheckedChange += decoders_CheckedChange;
             checkBoxEAN13.CheckedChange += decoders_CheckedChange;
             checkBoxCode39.CheckedChange += decoders_CheckedChange;
             checkBoxCode128.CheckedChange += decoders_CheckedChange;
+            checkBoxCodeI2of5.CheckedChange += decoders_CheckedChange;
         }
 
         void decoders_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
@@ -829,6 +827,9 @@ namespace Symbol.XamarinEMDK.BarcodeSample1
                     // Set Code128
                     config.DecoderParams.Code128.Enabled = checkBoxCode128.Checked;
 
+                    // Set CodeI2of5
+                    config.DecoderParams.I2of5.Enabled = checkBoxCodeI2of5.Checked;
+
                     // Should be assigned back to the property to get the changes to the lower layers.
                     scanner.SetConfig(config);
                 }
@@ -846,6 +847,7 @@ namespace Symbol.XamarinEMDK.BarcodeSample1
             checkBoxEAN13.Enabled = isEnabled;
             checkBoxCode39.Enabled = isEnabled;
             checkBoxCode128.Enabled = isEnabled;
+            checkBoxCodeI2of5.Enabled = isEnabled;
             spinnerScanners.Enabled = isEnabled;
             spinnerTriggers.Enabled = isEnabled;
         }
